@@ -27,6 +27,60 @@ else:
     api_key = os.environ["OPENAI_API_KEY"]
 
 
+# def scrape_twitter_thread(url):
+#     """
+#     Scrape a Twitter thread from a given URL and return the thread content and engagement statistics.
+
+#     Args:
+#     url (str): The URL of the Twitter thread to scrape.
+
+#     Returns:
+#     str: The content of the Twitter thread, along with the number of views, likes, retweets, and quotes.
+
+#     Raises:
+#     ValueError: If the URL is invalid.
+
+#     """
+
+#     # Extract the username and tweet ID from the URL using regex
+#     match = re.match(r'https?://(?:www\.|mobile\.)?twitter\.com/\w+/status/(\d+)', url)
+#     if match is None:
+#         raise ValueError("Invalid Twitter thread URL")
+#     username = url.split('/')[3]
+#     start_thread = int(match.group(1))
+
+#     # Scrape the tweets in the conversation thread
+#     tweets = sntwitter.TwitterTweetScraper(start_thread, mode=TwitterTweetScraperMode.SCROLL).get_items()
+
+#     # Create a list to store tweet data
+#     tweets_data = []
+
+#     for tweet in tweets:
+#         # Clean the tweet content by replacing newlines, URLs, and hashtags with spaces
+#         content = tweet.rawContent.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ') if tweet.rawContent else ''
+#         if content:
+#             tweets_data.append([content, tweet.user.username, tweet.likeCount, tweet.viewCount, tweet.retweetCount, tweet.quoteCount])
+
+#     # Create a DataFrame from the list
+#     columns = ['Content', 'User', 'Likes', 'Views', 'Retweets', 'Quotes']
+#     df = pd.DataFrame(tweets_data, columns=columns)
+
+#     # Filter the DataFrame to include only tweets from the thread owner
+#     filtered_df = df[df['User'] == username]
+
+#     # Combine the content of all tweets into a single text file
+#     content = '\n\n'.join(filtered_df['Content'].tolist())
+
+#     # Get information about the thread from the first row
+#     views = filtered_df['Views'].iloc[0]
+#     likes = filtered_df['Likes'].iloc[0]
+#     retweets = filtered_df['Retweets'].iloc[0]
+#     quotes = filtered_df['Quotes'].iloc[0]
+
+#     # Return the content and engagement statistics as a string
+#     output_str = f"{content}\n\nThis thread was viewed by {views} account(s), liked by {likes} account(s), retweeted by {retweets} account(s), and quoted by {quotes} account(s)."
+#     return output_str
+
 def scrape_twitter_thread(url):
     """
     Scrape a Twitter thread from a given URL and return the thread content and engagement statistics.
@@ -56,8 +110,11 @@ def scrape_twitter_thread(url):
     tweets_data = []
 
     for tweet in tweets:
+        # Skip Tombstone objects
+        if isinstance(tweet, sntwitter.Tombstone):
+            continue
         # Clean the tweet content by replacing newlines, URLs, and hashtags with spaces
-        content = tweet.rawContent.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ') if tweet.rawContent else ''
+        content = tweet.content.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ') if hasattr(tweet, 'content') else ''
         if content:
             tweets_data.append([content, tweet.user.username, tweet.likeCount, tweet.viewCount, tweet.retweetCount, tweet.quoteCount])
 
@@ -80,7 +137,6 @@ def scrape_twitter_thread(url):
     # Return the content and engagement statistics as a string
     output_str = f"{content}\n\nThis thread was viewed by {views} account(s), liked by {likes} account(s), retweeted by {retweets} account(s), and quoted by {quotes} account(s)."
     return output_str
-
 
 def get_thread_summary(output_thread):
     """
