@@ -112,7 +112,7 @@ def get_thread_summary(output_thread):
     return chain.run(threads)
 
 # Set the page configuration and title
-st.set_page_config(page_title="Ringkas Thread Twitter", page_icon=":bird:")
+st.set_page_config(page_title="Ringkas Thread Twitter", page_icon=":memo:")
 st.title("Ringkas Thread Twitter")
 
 # Display a brief description of the web app in Bahasa Indonesia with casual tone
