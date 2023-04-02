@@ -1,6 +1,11 @@
 # Ringkas Thread Twitter
 Aplikasi web ini membantu merangkum thread Twitter dengan mengekstrak konten thread dan menghasilkan ringkasan yang singkat dan dalam kalimat yang mudah dipahami. Aplikasi ini memanfaatkan teknologi Large Language Model (LLM) yang mampu memahami konteks bahasa manusia dan menghasilkan teks yang lebih natural.
 
+<div>
+    <img src="source-content.png" alt="Source Content" width="400" style="display: inline-block;">
+    <img src="summarized-content.png" alt="Summarized Content" width="400" style="display: inline-block;">
+</div>
+
 ### Penggunaan
 Masukkan URL thread Twitter pada kotak input di bawah ini.
 Klik tombol "Ringkas" untuk menampilkan ringkasan dan konten thread asli.
