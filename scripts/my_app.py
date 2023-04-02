@@ -60,7 +60,7 @@ def scrape_twitter_thread(url):
     # Iterate through the tweets and store relevant data in the list
     for tweet in tweets:
         # Clean the tweet content by replacing newlines, URLs, and hashtags with spaces
-        content = tweet.renderedContent.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ')
+        content = tweet.content.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ')
         tweets_data.append([content, tweet.user.username, tweet.likeCount, tweet.viewCount, tweet.retweetCount, tweet.quoteCount])
 
     # Create a DataFrame from the list
