@@ -5,11 +5,9 @@ import streamlit as st
 import re
 import time
 
-from langchain import LLMChain
-from langchain.llms import OpenAI
+from langchain import OpenAI, PromptTemplate, LLMChain
 from langchain.chains.summarize import load_summarize_chain
 from langchain.chains.mapreduce import MapReduceChain
-from langchain.prompts import PromptTemplate
 from langchain.text_splitter import CharacterTextSplitter, NLTKTextSplitter
 from langchain.docstore.document import Document
 
@@ -59,7 +57,7 @@ def scrape_twitter_thread(url):
 
     for tweet in tweets:
         # Clean the tweet content by replacing newlines, URLs, and hashtags with spaces
-        content = tweet.content.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ') if tweet.content else ''
+        content = tweet.rawContent.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ') if tweet.rawContent else ''
         if content:
             tweets_data.append([content, tweet.user.username, tweet.likeCount, tweet.viewCount, tweet.retweetCount, tweet.quoteCount])
 
@@ -98,9 +96,9 @@ def get_thread_summary(output_thread):
 
     """
     # Split the Twitter thread into individual documents
-    text_splitter = NLTKTextSplitter(separator="\n")
+    text_splitter = CharacterTextSplitter()
     texts = text_splitter.split_text(output_thread)
-    threads = [Document(page_content=t) for t in texts[:3]]
+    threads = [Document(page_content=t) for t in texts[:2]]
 
     # Set the prompt template for the summarization task
     prompt_template = """ Write a concise summary of the following twitter thread:
