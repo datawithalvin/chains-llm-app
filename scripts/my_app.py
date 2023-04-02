@@ -161,13 +161,13 @@ def get_thread_summary(output_thread):
 
     {text}
 
-    PLEASE READ THE THREAD CAREFULLY AND TRY TO UNDERSTAND ITS MESSAGE, CONCISE THREAD SUMMARY WITH CASUAL-RELATABLE-FRIENDLY TONE AND DISPLAY THE VIEWED COUNTS, 
+    PLEASE READ THE THREAD CAREFULLY AND TRY TO UNDERSTAND ITS MESSAGE, WRITE THREAD SUMMARY WITH CASUAL, INFORMATIVE AND EMPATHETIC TONE THEN DISPLAY THE VIEWED COUNTS, 
     LIKES COUNTS, RETWEETS COUNTS, AND QUOTES COUNTS AT THE END OF THE SUMMARY ALL IN BAHASA INDONESIA":
     """
 
     # Initialize the summarization chain and run the chain on the Twitter thread
     myprompt = PromptTemplate(template=prompt_template, input_variables=["text"])
-    chain = load_summarize_chain(OpenAI(temperature=0.4, 
+    chain = load_summarize_chain(OpenAI(temperature=0.7, 
                                         openai_api_key=api_key, 
                                         model_name="gpt-3.5-turbo",
                                         max_tokens=300), 
