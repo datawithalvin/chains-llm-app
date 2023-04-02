@@ -3,6 +3,7 @@ import snscrape.modules.twitter as sntwitter
 from snscrape.modules.twitter import TwitterTweetScraperMode
 import streamlit as st
 import re
+import time
 
 from langchain import LLMChain
 from langchain.llms import OpenAI
@@ -138,24 +139,28 @@ st.markdown("""
 # Set the input box for the Twitter thread URL in Bahasa Indonesia
 url = st.text_input(label="Masukkan URL Thread Twitter", placeholder='misalnya https://twitter.com/jack/status/1082159636994121729')
 
-# Add a "Ringkas" button in Bahasa Indonesia with casual tone
+# Add a button
 if st.button("Ringkas"):
-    # Scrape the Twitter thread and summarize the content
-    if url:
-        scrape_content = scrape_twitter_thread(url)
-        summary = get_thread_summary(scrape_content)
-    else:
-        scrape_content = ""
-        summary = ""
+    # Display a spinner while the app is processing the request
+    with st.spinner('Tunggu sebentar ya.... lagi dibuat ringkasannya'):
+        time.sleep(2) # Add some delay for demonstration purposes
+        
+        # Scrape the Twitter thread and summarize the content
+        if url:
+            scrape_content = scrape_twitter_thread(url)
+            summary = get_thread_summary(scrape_content)
+        else:
+            scrape_content = ""
+            summary = ""
 
-    # Display the summary and original thread content
-    if summary:
-        st.header("Ringkasan Dari Thread Twitter yang Kamu Input:")
-        st.write(summary)
+        # Display the summary and original thread content
+        if summary:
+            st.header("Ringkasan Dari Thread Twitter yang Kamu Input:")
+            st.write(summary)
 
-    if scrape_content:
-        st.header("Konten Dari Thread Asli:")
-        st.write(scrape_content)
+        if scrape_content:
+            st.header("Konten Dari Thread Asli:")
+            st.write(scrape_content)
 
-    if not summary and not scrape_content:
-        st.write("Mohon masukkan URL thread Twitter yang valid untuk menampilkan ringkasan.")
+        if not summary and not scrape_content:
+            st.write("Mohon masukkan URL thread Twitter yang valid untuk menampilkan ringkasan.")
