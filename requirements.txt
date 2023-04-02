@@ -1,5 +1,7 @@
-langchain
-openai
 streamlit
-dotenv
+pandas
 snscrape
+nltk
+langchain
+python-dotenv
+openai
