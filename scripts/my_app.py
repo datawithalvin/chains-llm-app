@@ -15,6 +15,9 @@ from langchain.docstore.document import Document
 import os
 from dotenv import load_dotenv
 
+import nltk
+nltk.download("punkt")
+
 load_dotenv()
 
 
