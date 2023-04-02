@@ -1,6 +1,6 @@
 streamlit
 pandas
-snscrape
+git+https://github.com/datawithalvin/snscrape@master
 nltk
 langchain
 python-dotenv
