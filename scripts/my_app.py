@@ -59,7 +59,7 @@ def scrape_twitter_thread(url):
 
     for tweet in tweets:
         # Clean the tweet content by replacing newlines, URLs, and hashtags with spaces
-        content = tweet.text.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ') if tweet.text else ''
+        content = tweet.content.replace('\n', ' ').replace('http\S+', ' ').replace('#\S+', ' ') if tweet.text else ''
         if content:
             tweets_data.append([content, tweet.user.username, tweet.likeCount, tweet.viewCount, tweet.retweetCount, tweet.quoteCount])
 
