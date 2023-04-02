@@ -104,7 +104,11 @@ def get_thread_summary(output_thread):
     """
 
     # Initialize the summarization chain and run the chain on the Twitter thread
-    api_key = os.environ["OPENAI_API_KEY"]
+    if "OPENAI_API_KEY" not in os.environ:
+    print("API key not found in environment variables.")
+    else:
+        api_key = os.environ["OPENAI_API_KEY"]
+    
     myprompt = PromptTemplate(template=prompt_template, input_variables=["text"])
     chain = load_summarize_chain(OpenAI(temperature=0.6, 
                                         openai_api_key=api_key, 
