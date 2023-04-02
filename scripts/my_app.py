@@ -21,6 +21,7 @@ import nltk
 nltk.download("punkt")
 
 
+api_key = ""
 if "OPENAI_API_KEY" not in os.environ:
     print("API key not found in environment variables.")
 else:
