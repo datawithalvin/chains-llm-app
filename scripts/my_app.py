@@ -105,7 +105,7 @@ def get_thread_summary(output_thread):
 
     # Initialize the summarization chain and run the chain on the Twitter thread
     if "OPENAI_API_KEY" not in os.environ:
-    print("API key not found in environment variables.")
+        print("API key not found in environment variables.")
     else:
         api_key = os.environ["OPENAI_API_KEY"]
     
