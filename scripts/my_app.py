@@ -170,7 +170,7 @@ def get_thread_summary(output_thread):
     chain = load_summarize_chain(OpenAI(temperature=0.7, 
                                         openai_api_key=api_key, 
                                         model_name="gpt-3.5-turbo",
-                                        max_tokens=300), 
+                                        max_tokens=400), 
                                 chain_type="stuff", prompt=myprompt)
 
     return chain.run(threads)
